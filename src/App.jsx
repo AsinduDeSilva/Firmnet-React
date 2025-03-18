@@ -1,10 +1,14 @@
-function App() {
+import React, { useState } from "react";
+import Devices from "./components/Devices";
+
+const App = () => {
+  
 
   return (
     <>
-      
+        <Devices/>
     </>
-  )
-}
+  );
+};
 
-export default App
+export default App;
