@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Devices from "./components/Devices";
+import Devices from "./components/Devices.jsx";
 
 const App = () => {
   
