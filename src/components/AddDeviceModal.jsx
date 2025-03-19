@@ -23,17 +23,17 @@ const AddDeviceModal = ({ isOpen, onClose, onSubmit }) => {
 
             <div>
                 <label className="block text-gray-700">Password</label>
-                <input type="email" className="mt-1 p-2 w-full border rounded-md" required />
+                <input type="password" className="mt-1 p-2 w-full border rounded-md" required />
             </div>
 
             <div>
                 <label className="block text-gray-700">Ip Address</label>
-                <input type="email" className="mt-1 p-2 w-full border rounded-md" required />
+                <input type="text" className="mt-1 p-2 w-full border rounded-md" required />
             </div>
 
             <div>
                 <label className="block text-gray-700">Firmware Update URL</label>
-                <input type="email" className="mt-1 p-2 w-full border rounded-md" required />
+                <input type="text" className="mt-1 p-2 w-full border rounded-md" required />
             </div>
 
             <div className="flex justify-end space-x-2">

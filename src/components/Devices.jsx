@@ -26,6 +26,9 @@ const initialRows = [
   { deviceId: "089", deviceName: "PC1", ipAddress: "192.168.1.1" },
   { deviceId: "090", deviceName: "PC2", ipAddress: "192.168.1.2" },
   { deviceId: "091", deviceName: "PC3", ipAddress: "192.168.1.3" },
+  { deviceId: "092", deviceName: "PC4", ipAddress: "192.168.1.3" },
+  { deviceId: "093", deviceName: "PC5", ipAddress: "192.168.1.3" },
+  { deviceId: "094", deviceName: "PC6", ipAddress: "192.168.1.3" },
 ];
 
 const Devices = () => {
@@ -52,7 +55,7 @@ const Devices = () => {
   return (
     <>
         <div className="flex flex-col items-center min-h-screen bg-white p-6">
-        <p className="text-4xl font-bold mb-5">DEVICES</p>
+        <p className="text-4xl font-bold">DEVICES</p>
         <div className="flex w-[80%] justify-end pt-10 pb-5">
             <Button
                 variant="contained"
