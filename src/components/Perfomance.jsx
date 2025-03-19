@@ -1,7 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { Line, Bar, Pie } from "react-chartjs-2";
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, BarElement, ArcElement, Tooltip, Legend } from "chart.js";
-import { useState } from "react";
 import Select from "react-select";
 
 // Register Chart.js components
@@ -20,6 +19,8 @@ const colors = {
   brownShades: ["#8B4513", "#A0522D", "#D2691E"],
   whiteBlack: ["#FFFFFF", "#000000"],
   whiteBrown: ["#FFFFFF", "#5C4033"],
+  grey: ["#808080", "#A9A9A9"], // Grey color palette
+  greyBrownBlack: ["#808080", "#5C4033", "#000000"], // New palette for firmware and security status
 };
 
 // Chart data
@@ -41,8 +42,6 @@ const cpuMemoryData = {
   ],
 };
 
-
-
 const networkData = {
   labels: ["00:00", "01:00", "02:00", "03:00", "04:00"],
   datasets: [
@@ -59,12 +58,13 @@ const networkData = {
   ],
 };
 
+// Updated Firmware Success/Failure chart with grey, brown, and black colors
 const firmwareData = {
   labels: ["Success", "Failure"],
   datasets: [
     {
       data: [85, 15],
-      backgroundColor: colors.whiteBlack,
+      backgroundColor: colors.greyBrownBlack, // Grey, brown, and black colors
     },
   ],
 };
@@ -99,73 +99,74 @@ const responseTimeData = {
   ],
 };
 
+// Updated Security Status chart with grey, brown, and black colors
 const securityStatusData = {
   labels: ["Secure Devices", "Vulnerable Devices"],
   datasets: [
     {
       data: [70, 30],
-      backgroundColor: colors.whiteBrown,
+      backgroundColor: colors.greyBrownBlack, // Grey, brown, and black colors
     },
   ],
 };
 
 const Performance = () => {
+  const [device, setDevice] = useState("");
+  const [deviceDetails, setDeviceDetails] = useState({});
 
   const deviceOptions = [
     { label: "Device 1", value: "Device 1", ip: "192.168.1.10" },
     { label: "Device 2", value: "Device 2", ip: "192.168.1.20" },
     { label: "Device 3", value: "Device 3", ip: "192.168.1.30" },
     { label: "Device 4", value: "Device 4", ip: "192.168.1.30" },
-    { label: "Device 45", value: "Device 45", ip: "192.168.1.30"},];
-  
+    { label: "Device 45", value: "Device 45", ip: "192.168.1.30" },
+  ];
+
   const handleDeviceChange = (selectedOption) => {
     setDevice(selectedOption.value);
-  
-    
     const deviceInfo = deviceOptions.find((dev) => dev.value === selectedOption.value);
     setDeviceDetails(deviceInfo || {});
   };
-  
-  
-  
-  
+
   const customStyles = {
     control: (provided, state) => ({
       ...provided,
       borderColor: state.isFocused ? 'black' : '#ccc',
       '&:hover': {
-        borderColor: 'black',  
+        borderColor: 'black',
       },
-      boxShadow: state.isFocused ? '0 0 0 2px rgba(0, 0, 0, 0.3)' : 'none', 
+      boxShadow: state.isFocused ? '0 0 0 2px rgba(0, 0, 0, 0.3)' : 'none',
     }),
     option: (provided, state) => ({
       ...provided,
       backgroundColor: state.isSelected ? '#f1f1f1' : state.isFocused ? '#e0e0e0' : 'white',
       '&:hover': {
-        backgroundColor: '#e0e0e0', 
+        backgroundColor: '#e0e0e0',
       },
     }),
   };
-  const [device, setDevice] = useState("");
-  const [deviceDetails, setDeviceDetails] = useState({});
-  
+
   return (
     <>
-      <h1 className="text-4xl font-bold pl-5">Performances</h1>
-      <br />
-        <div className="flex items-center justify-between">
-            <Select
-              className="flex-1 mx-6"
-              options={deviceOptions}
-              onChange={handleDeviceChange}
-              placeholder="Select Device"
-              getOptionLabel={(e) => e.label}
-              getOptionValue={(e) => e.value}
-              styles={customStyles} 
-            />
-          </div>
+      <h1 className="text-4xl font-bold text-center my-10">PERFORMANCES</h1>
+      <div className="flex items-center justify-between">
+        <Select
+          className="flex-1 mx-6"
+          options={deviceOptions}
+          onChange={handleDeviceChange}
+          placeholder="Select Device"
+          getOptionLabel={(e) => e.label}
+          getOptionValue={(e) => e.value}
+          styles={customStyles}
+        />
+      </div>
+      {device && deviceDetails.label && (
+        <div className="flex-1 mx-6 mt-4">
+          <p className="text-gray-700">Device Name: {deviceDetails.label}</p>
+          <p className="text-gray-700">IP Address: {deviceDetails.ip}</p>
+        </div>
+      )}
       <div className="p-4 grid grid-cols-1 md:grid-cols-3 gap-4">
-        
         {/* CPU & Memory Usage */}
         <div className="bg-white shadow-lg rounded-lg p-4">
           <h2 className="text-xl font-bold mb-2">CPU & Memory Usage</h2>
