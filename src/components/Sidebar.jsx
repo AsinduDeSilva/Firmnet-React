@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import Cookies from "js-cookie";
 
 const Sidebar = () => {
  
   const [currentPage, setCurrentPage] = useState('home');
+  const navigate = useNavigate();
 
   return (
     <div className="bg-white text-black w-64 space-y-6 py-7 px-2 absolute inset-y-0 left-0 transform -translate-x-full md:relative md:translate-x-0 transition duration-100 ease-in-out">
@@ -49,15 +51,17 @@ const Sidebar = () => {
         >
           Performance
         </Link>
-        <Link
-          to="/"
+        <a
           className={`flex justify-center items-center py-3 px-6 rounded-[35px] transition duration-100 ${
             currentPage === 'logout' ? 'bg-black text-white' : 'hover:bg-black hover:text-white'
           }`}
-          onClick={() => setCurrentPage('logout')}
+          onClick={() => {
+            Cookies.remove("auth");
+            navigate("/signin", {replace: true});
+          }}
         >
           Log Out
-        </Link>
+        </a>
       </nav>
     </div>
   );

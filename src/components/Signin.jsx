@@ -1,12 +1,40 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
-export default function LoginForm() {
-  const [email, setEmail] = useState("");
+export default function LoginForm({ setIsAuthenticated }) {
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Email:", email, "Password:", password);
+
+    fetch('http://localhost:8080/api/v1/auth', {
+      method: 'POST',
+      body: JSON.stringify({
+        username: username,
+        password: password,
+      }),
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+
+        if(data.success){
+          Cookies.set("auth", "true", { expires: 1, secure: true, sameSite: "Strict" })
+          localStorage.setItem("auth", "true");
+          setIsAuthenticated(true);
+          navigate("/", {replace: true});
+        }else{
+          alert("Wrong username or password!");
+        }
+
+      });
+
+    
   };
 
   return (
@@ -19,8 +47,8 @@ export default function LoginForm() {
             <input
               type="name"
               className="w-full px-4 py-2 mt-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
-              value={name}
-              onChange={(e) => setEmail(e.target.value)}
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
               required
             />
           </div>

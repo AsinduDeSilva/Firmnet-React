@@ -55,10 +55,10 @@ const Devices = () => {
   return (
     <>
         <div className="flex flex-col items-center min-h-screen bg-white">
-        <h2 className="text-4xl font-bold my-10 text-center text-gray-800">
-          Devices
+        <h2 className="text-4xl font-bold my-10 text-center text-gray-800 w-[80%]">
+          DEVICES
         </h2>
-        <div className="flex w-[80%] justify-end pt-10 pb-5">
+        <div className="flex w-[80%] justify-end pb-5">
             <Button
                 variant="contained"
                 onClick={() => setIsModalOpen(true)}
