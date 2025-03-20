@@ -148,7 +148,7 @@ const Performance = () => {
 
   return (
     <>
-      <h1 className="text-4xl font-bold text-center my-10">PERFORMANCES</h1>
+      <h1 className="text-4xl font-bold text-center my-10">PERFORMANCE</h1>
       <div className="flex items-center justify-between">
         <Select
           className="flex-1 mx-6"

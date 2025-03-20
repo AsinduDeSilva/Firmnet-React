@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const Sidebar = () => {
  
@@ -12,51 +13,51 @@ const Sidebar = () => {
       </div>
       </div>
       <nav className="space-y-8">
-        <a
-          href="#"
+        <Link
+          to="/"
           className={`flex justify-center items-center py-3 px-4 rounded-[35px] transition duration-100 ${
             currentPage === 'home' ? 'bg-black text-white' : 'hover:bg-black hover:text-white'
           }`}
           onClick={() => setCurrentPage('home')}
         >
           Home
-        </a>
-        <a
-          href="#"
+        </Link>
+        <Link
+          to="/devices"
           className={`flex justify-center items-center py-3 px-4 rounded-[35px] transition duration-100 ${
             currentPage === 'devices' ? 'bg-black text-white' : 'hover:bg-black hover:text-white'
           }`}
           onClick={() => setCurrentPage('devices')}
         >
           Devices
-        </a>
-        <a
-          href="#"
+        </Link>
+        <Link
+          to="/firmware"
           className={`flex justify-center items-center py-3 px-6 rounded-[35px] transition duration-100 ${
             currentPage === 'firmware' ? 'bg-black text-white' : 'hover:bg-black hover:text-white'
           }`}
           onClick={() => setCurrentPage('firmware')}
         >
           Firmware
-        </a>
-        <a
-          href="#"
+        </Link>
+        <Link
+          to="/performance"
           className={`flex justify-center items-center py-3 px-4 rounded-[35px] transition duration-100 ${
             currentPage === 'performance' ? 'bg-black text-white' : 'hover:bg-black hover:text-white'
           }`}
           onClick={() => setCurrentPage('performance')}
         >
           Performance
-        </a>
-        <a
-          href="#"
+        </Link>
+        <Link
+          to="/"
           className={`flex justify-center items-center py-3 px-6 rounded-[35px] transition duration-100 ${
             currentPage === 'logout' ? 'bg-black text-white' : 'hover:bg-black hover:text-white'
           }`}
           onClick={() => setCurrentPage('logout')}
         >
           Log Out
-        </a>
+        </Link>
       </nav>
     </div>
   );
