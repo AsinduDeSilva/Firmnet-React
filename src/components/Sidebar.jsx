@@ -32,21 +32,21 @@ const Sidebar = () => {
         </a>
         <a
           href="#"
-          className={`flex justify-center items-center py-3 px-4 rounded-[35px] transition duration-100 ${
-            currentPage === 'performance' ? 'bg-black text-white' : 'hover:bg-black hover:text-white'
-          }`}
-          onClick={() => setCurrentPage('performance')}
-        >
-          Performance
-        </a>
-        <a
-          href="#"
           className={`flex justify-center items-center py-3 px-6 rounded-[35px] transition duration-100 ${
             currentPage === 'firmware' ? 'bg-black text-white' : 'hover:bg-black hover:text-white'
           }`}
           onClick={() => setCurrentPage('firmware')}
         >
           Firmware
+        </a>
+        <a
+          href="#"
+          className={`flex justify-center items-center py-3 px-4 rounded-[35px] transition duration-100 ${
+            currentPage === 'performance' ? 'bg-black text-white' : 'hover:bg-black hover:text-white'
+          }`}
+          onClick={() => setCurrentPage('performance')}
+        >
+          Performance
         </a>
         <a
           href="#"
