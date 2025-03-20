@@ -37,13 +37,13 @@ export default function FirmwareUpdate() {
       ...provided,
       borderColor: state.isFocused ? 'black' : '#ccc',
       '&:hover': {
-        borderColor: 'black',  
+        borderColor: '#555',  
       },
       boxShadow: state.isFocused ? '0 0 0 2px rgba(0, 0, 0, 0.3)' : 'none', 
     }),
     option: (provided, state) => ({
       ...provided,
-      backgroundColor: state.isSelected ? '#f1f1f1' : state.isFocused ? '#e0e0e0' : 'white',
+      backgroundColor: state.isSelected ? '#f1f1f1' : state.isFocused ? '#d1d1d1' : 'white',
       '&:hover': {
         backgroundColor: '#e0e0e0', 
       },
@@ -51,9 +51,9 @@ export default function FirmwareUpdate() {
   };
 
   return (
-    <div className="w-full h-screen flex items-center justify-center bg-white-100">
+    <div className="w-full h-screen flex  justify-center bg-white-100">
       <div className="w-full max-w-3xl p-10 bg-white rounded-lg">
-        <h2 className="text-2xl font-bold mb-10 text-center text-gray-800">
+        <h2 className="text-4xl font-bold mb-10 text-center text-gray-800">
           UPDATE FIRMWARE
         </h2>
 
@@ -62,7 +62,7 @@ export default function FirmwareUpdate() {
           
           <div className="flex items-center justify-between">
             <Select
-              className="flex-1 mx-6"
+              className="flex-1 mx-6 pt-10"
               options={deviceOptions}
               onChange={handleDeviceChange}
               placeholder="Select Device"

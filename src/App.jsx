@@ -10,7 +10,7 @@ function App() {
     <div className="flex">
       <Sidebar />
       <div className="flex-1 pt-10">
-        <Performance />
+        <Devices />
       </div>
     </div>
   );
