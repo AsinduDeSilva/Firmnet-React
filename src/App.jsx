@@ -8,7 +8,7 @@ function App() {
   return (
     <div className="flex">
       <Sidebar />
-      <div className="flex-1 pt-10">
+      <div className="flex-1 pt-10 bg-[#F0F0F0]">
         <Firmware />
       </div>
     </div>
