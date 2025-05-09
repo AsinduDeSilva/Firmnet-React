@@ -1,43 +1,50 @@
 import React, { useState } from "react";
 import { Line, Bar, Pie } from "react-chartjs-2";
-import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, BarElement, ArcElement, Tooltip, Legend } from "chart.js";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  BarElement,
+  ArcElement,
+  Tooltip,
+  Legend,
+} from "chart.js";
 import Select from "react-select";
 
 // Register Chart.js components
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, BarElement, ArcElement, Tooltip, Legend);
 
-// Color palettes
+// Updated Color Palette for #1e1e2b Background
 const colors = {
-  blackBrown: ["#000000", "#5C4033"],
-  blackLightBrown: ["#000000", "#A67B5B"],
-  blackWhite: ["#000000", "#FFFFFF"],
-  brownBlack: ["#5C4033", "#000000"],
-  brownWhite: ["#5C4033", "#FFFFFF"],
-  lightBrown: ["#A67B5B"],
-  monochrome: ["#7F7F7F", "#4D4D4D"],
-  beige: ["#F5F5DC", "#D2B48C"],
-  brownShades: ["#8B4513", "#A0522D", "#D2691E"],
-  whiteBlack: ["#FFFFFF", "#000000"],
-  whiteBrown: ["#FFFFFF", "#5C4033"],
-  grey: ["#808080", "#A9A9A9"], // Grey color palette
-  greyBrownBlack: ["#808080", "#5C4033", "#000000"], // New palette for firmware and security status
+  background: "#1e1e2b",
+  text: "#E0E0E0",
+  primary: "#D4AF37",
+  accentOrange: "#FF8C42",
+  accentBlue: "#3DDAD7",
+  slateGrey: "#708090",
+  success: "#81C784",
+  danger: "#E57373",
+  grey: "#9E9E9E",
+  chartBackground: "#2A2A3B",
 };
 
-// Chart data
+// Chart data using updated palette
 const cpuMemoryData = {
   labels: ["00:00", "01:00", "02:00", "03:00", "04:00"],
   datasets: [
     {
       label: "CPU Usage",
       data: [30, 40, 35, 50, 45],
-      borderColor: colors.blackBrown[0],
-      backgroundColor: colors.blackBrown[1],
+      borderColor: colors.primary,
+      backgroundColor: colors.primary,
     },
     {
       label: "Memory Usage",
       data: [45, 50, 48, 55, 53],
-      borderColor: colors.blackLightBrown[0],
-      backgroundColor: colors.blackLightBrown[1],
+      borderColor: colors.accentOrange,
+      backgroundColor: colors.accentOrange,
     },
   ],
 };
@@ -48,23 +55,22 @@ const networkData = {
     {
       label: "Latency (ms)",
       data: [20, 25, 22, 30, 27],
-      backgroundColor: colors.brownBlack[0],
+      backgroundColor: colors.accentBlue,
     },
     {
       label: "Packet Loss (%)",
       data: [2, 3, 1, 4, 2],
-      backgroundColor: colors.brownWhite[1],
+      backgroundColor: colors.slateGrey,
     },
   ],
 };
 
-// Updated Firmware Success/Failure chart with grey, brown, and black colors
 const firmwareData = {
   labels: ["Success", "Failure"],
   datasets: [
     {
       data: [85, 15],
-      backgroundColor: colors.greyBrownBlack, // Grey, brown, and black colors
+      backgroundColor: [colors.success, colors.danger],
     },
   ],
 };
@@ -75,14 +81,14 @@ const deviceUptimeData = {
     {
       label: "Uptime (%)",
       data: [98, 97, 96, 95, 94],
-      borderColor: colors.monochrome[0],
-      backgroundColor: colors.monochrome[1],
+      borderColor: colors.success,
+      backgroundColor: colors.success,
     },
     {
       label: "Downtime (%)",
       data: [2, 3, 4, 5, 6],
-      borderColor: colors.beige[0],
-      backgroundColor: colors.beige[1],
+      borderColor: colors.danger,
+      backgroundColor: colors.danger,
     },
   ],
 };
@@ -93,19 +99,18 @@ const responseTimeData = {
     {
       label: "Response Time (ms)",
       data: [120, 110, 115, 130, 125],
-      borderColor: colors.brownShades[0],
-      backgroundColor: colors.brownShades[1],
+      borderColor: colors.accentBlue,
+      backgroundColor: colors.accentBlue,
     },
   ],
 };
 
-// Updated Security Status chart with grey, brown, and black colors
 const securityStatusData = {
   labels: ["Secure Devices", "Vulnerable Devices"],
   datasets: [
     {
       data: [70, 30],
-      backgroundColor: colors.greyBrownBlack, // Grey, brown, and black colors
+      backgroundColor: [colors.success, colors.danger],
     },
   ],
 };
@@ -118,8 +123,8 @@ const Performance = () => {
     { label: "Device 1", value: "Device 1", ip: "192.168.1.10" },
     { label: "Device 2", value: "Device 2", ip: "192.168.1.20" },
     { label: "Device 3", value: "Device 3", ip: "192.168.1.30" },
-    { label: "Device 4", value: "Device 4", ip: "192.168.1.30" },
-    { label: "Device 45", value: "Device 45", ip: "192.168.1.30" },
+    { label: "Device 4", value: "Device 4", ip: "192.168.1.40" },
+    { label: "Device 45", value: "Device 45", ip: "192.168.1.45" },
   ];
 
   const handleDeviceChange = (selectedOption) => {
@@ -131,24 +136,29 @@ const Performance = () => {
   const customStyles = {
     control: (provided, state) => ({
       ...provided,
-      borderColor: state.isFocused ? 'black' : '#ccc',
+      borderColor: state.isFocused ? colors.primary : "#ccc",
+      backgroundColor: "#fdfdfd",
       '&:hover': {
-        borderColor: 'black',
+        borderColor: colors.primary,
       },
-      boxShadow: state.isFocused ? '0 0 0 2px rgba(0, 0, 0, 0.3)' : 'none',
+      boxShadow: state.isFocused ? `0 0 0 2px ${colors.primary}40` : 'none',
     }),
     option: (provided, state) => ({
       ...provided,
-      backgroundColor: state.isSelected ? '#f1f1f1' : state.isFocused ? '#e0e0e0' : 'white',
+      backgroundColor: state.isSelected
+        ? colors.grey
+        : state.isFocused
+        ? "#e0e0e0"
+        : "white",
       '&:hover': {
-        backgroundColor: '#e0e0e0',
+        backgroundColor: "#e0e0e0",
       },
     }),
   };
 
   return (
     <>
-      <h1 className="text-4xl font-bold text-center my-10">PERFORMANCE</h1>
+      <h1 className="text-4xl font-bold ml-5 mb-10 mt-10 text-[#d3d5de]">PERFORMANCE</h1>
       <div className="flex items-center justify-between">
         <Select
           className="flex-1 mx-6"
@@ -160,56 +170,58 @@ const Performance = () => {
           styles={customStyles}
         />
       </div>
+
       {device && deviceDetails.label && (
-        <div className="flex-1 mx-6 mt-4">
-          <p className="text-gray-700">Device Name: {deviceDetails.label}</p>
-          <p className="text-gray-700">IP Address: {deviceDetails.ip}</p>
+        <div className="flex-1 mx-6 mt-4 text-white">
+          <p>Device Name: {deviceDetails.label}</p>
+          <p>IP Address: {deviceDetails.ip}</p>
         </div>
       )}
+
       <div className="p-4 grid grid-cols-1 md:grid-cols-3 gap-4">
         {/* CPU & Memory Usage */}
-        <div className="bg-white shadow-lg rounded-lg p-4">
-          <h2 className="text-xl font-bold mb-2">CPU & Memory Usage</h2>
+        <div className="bg-[#1e1e2b] shadow-lg rounded-lg p-4">
+          <h2 className="text-xl font-bold mb-2 text-[#d3d5de]">CPU & Memory Usage</h2>
           <div style={{ width: "100%", height: "200px" }}>
             <Line data={cpuMemoryData} options={{ maintainAspectRatio: false }} />
           </div>
         </div>
 
         {/* Network Latency & Packet Loss */}
-        <div className="bg-white shadow-lg rounded-lg p-4">
-          <h2 className="text-xl font-bold mb-2">Network Latency & Packet Loss</h2>
+        <div className="bg-[#1e1e2b] shadow-lg rounded-lg p-4">
+          <h2 className="text-xl font-bold mb-2 text-[#d3d5de]">Network Latency & Packet Loss</h2>
           <div style={{ width: "100%", height: "200px" }}>
             <Bar data={networkData} options={{ maintainAspectRatio: false }} />
           </div>
         </div>
 
         {/* Firmware Update Success/Failure */}
-        <div className="bg-white shadow-lg rounded-lg p-4">
-          <h2 className="text-xl font-bold mb-2">Firmware Success/Failure Rate</h2>
+        <div className="bg-[#1e1e2b] shadow-lg rounded-lg p-4">
+          <h2 className="text-xl font-bold mb-2 text-[#d3d5de]">Firmware Success/Failure Rate</h2>
           <div style={{ width: "100%", height: "200px" }}>
             <Pie data={firmwareData} options={{ maintainAspectRatio: false }} />
           </div>
         </div>
 
         {/* Device Uptime/Downtime */}
-        <div className="bg-white shadow-lg rounded-lg p-4">
-          <h2 className="text-xl font-bold mb-2">Device Uptime/Downtime</h2>
+        <div className="bg-[#1e1e2b] shadow-lg rounded-lg p-4">
+          <h2 className="text-xl font-bold mb-2 text-[#d3d5de]">Device Uptime/Downtime</h2>
           <div style={{ width: "100%", height: "200px" }}>
             <Line data={deviceUptimeData} options={{ maintainAspectRatio: false }} />
           </div>
         </div>
 
         {/* Response Time */}
-        <div className="bg-white shadow-lg rounded-lg p-4">
-          <h2 className="text-xl font-bold mb-2">Response Time</h2>
+        <div className="bg-[#1e1e2b] shadow-lg rounded-lg p-4">
+          <h2 className="text-xl font-bold mb-2 text-[#d3d5de]">Response Time</h2>
           <div style={{ width: "100%", height: "200px" }}>
             <Line data={responseTimeData} options={{ maintainAspectRatio: false }} />
           </div>
         </div>
 
         {/* Security Status */}
-        <div className="bg-white shadow-lg rounded-lg p-4">
-          <h2 className="text-xl font-bold mb-2">Security Status</h2>
+        <div className="bg-[#1e1e2b] shadow-lg rounded-lg p-4">
+          <h2 className="text-xl font-bold mb-2 text-[#d3d5de]">Security Status</h2>
           <div style={{ width: "100%", height: "200px" }}>
             <Pie data={securityStatusData} options={{ maintainAspectRatio: false }} />
           </div>
