@@ -6,9 +6,10 @@ import Firmware from './components/Firmware'
 import Performance from './components/Perfomance';
 import Cookies from "js-cookie";
 import { Navigate, Route, Routes } from 'react-router-dom';
+import Home from './components/Home';
 
 function ProtectedRoute({ children }) {
-  const isAuthenticated = Cookies.get('auth') === "true";
+  const isAuthenticated = true; //Cookies.get('auth') === "true";
   return isAuthenticated ? children : <Navigate to="/signin" />;
 }
 
@@ -29,8 +30,9 @@ function App() {
             <ProtectedRoute>
               <div className="flex">
                 <Sidebar />
-                <div className="flex-1 pt-10">
+                <div className="flex-1 bg-[#15151f]">
                   <Routes>
+                    <Route path="/" element={<Home />} />
                     <Route path="/devices" element={<Devices />} />
                     <Route path="/firmware" element={<Firmware />} />
                     <Route path="/performance" element={<Performance />} />

@@ -54,11 +54,11 @@ const Devices = () => {
 
   return (
     <>
-        <div className="flex flex-col items-center min-h-screen bg-white">
-        <h2 className="text-4xl font-bold my-10 text-center text-gray-800 w-[80%]">
+        <div className="flex flex-col items-center min-h-screen bg-[#15151f]">
+        <h2 className="text-4xl font-bold my-10 text-[#d3d5de] w-[80%]">
           DEVICES
         </h2>
-        <div className="flex w-[80%] justify-end pb-5">
+        <div className="flex w-[80%]  pb-5">
             <Button
                 variant="contained"
                 onClick={() => setIsModalOpen(true)}
@@ -68,57 +68,67 @@ const Devices = () => {
             </Button>
         </div>
 
-        <Paper sx={{ width: "80%", overflow: "hidden" }}>
+        <Paper sx={{ width: "80%", overflow: "hidden", backgroundColor: "#1e1e2b" }}>
             <TableContainer sx={{ maxHeight: 400 }}>
-            <Table stickyHeader>
-                <TableHead>
-                <TableRow>
+                <Table stickyHeader>
+                <TableHead sx={{ backgroundColor: "#1e1e2b" }}>
+                    <TableRow>
                     {columns.map((column) => (
-                    <TableCell key={column.id} align={column.align}>
+                        <TableCell
+                        key={column.id}
+                        align={column.align}
+                        sx={{ color: "#d3d5de", backgroundColor: "#1e1e2b" }}
+                        >
                         {column.label}
-                    </TableCell>
-                    ))}
-                </TableRow>
-                </TableHead>
-                <TableBody>
-                {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
-                    <TableRow hover key={row.deviceId}>
-                    {columns.map((column) => {
-                        const value = row[column.id];
-                        return (
-                        <TableCell key={column.id} align={column.align}>
-                            {column.id === "actions" ? (
-                            <div className="flex justify-center space-x-3">
-                                <CloudUploadIcon className="text-black cursor-pointer" />
-                                <EditIcon className="text-black cursor-pointer" />
-                                <DeleteIcon
-                                className="text-black cursor-pointer"
-                                onClick={() => handleDelete(row.deviceId)}
-                                />
-                            </div>
-                            ) : (
-                            value
-                            )}
                         </TableCell>
-                        );
-                    })}
+                    ))}
                     </TableRow>
-                ))}
+                </TableHead>
+                <TableBody sx={{ backgroundColor: "#1e1e2b" }}>
+                    {rows
+                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                    .map((row) => (
+                        <TableRow hover key={row.deviceId}>
+                        {columns.map((column) => {
+                            const value = row[column.id];
+                            return (
+                            <TableCell
+                                key={column.id}
+                                align={column.align}
+                                sx={{ color: "#d3d5de", backgroundColor: "#1e1e2b" }}
+                            >
+                                {column.id === "actions" ? (
+                                <div className="flex justify-center space-x-3">
+                                    <CloudUploadIcon className="text-[#d3d5de] cursor-pointer" />
+                                    <EditIcon className="text-[#d3d5de] cursor-pointer" />
+                                    <DeleteIcon
+                                    className="text-[#d3d5de] cursor-pointer"
+                                    onClick={() => handleDelete(row.deviceId)}
+                                    />
+                                </div>
+                                ) : (
+                                value
+                                )}
+                            </TableCell>
+                            );
+                        })}
+                        </TableRow>
+                    ))}
                 </TableBody>
-            </Table>
+                </Table>
             </TableContainer>
 
             <TablePagination
-            rowsPerPageOptions={[5, 10, 25]}
-            component="div"
-            count={rows.length}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            onPageChange={handleChangePage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
+                rowsPerPageOptions={[5, 10, 25]}
+                component="div"
+                count={rows.length}
+                rowsPerPage={rowsPerPage}
+                page={page}
+                onPageChange={handleChangePage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
+                sx={{ color: "#d3d5de", backgroundColor: "#1e1e2b" }}
             />
-        </Paper>
-
+            </Paper>
         <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onSubmit={handleAddDevice} />
         </div>
     </>
