@@ -12,7 +12,7 @@ const AddDeviceModal = ({ isOpen, onClose, onSubmit }) => {
 
                 <form onSubmit={onSubmit} className="space-y-4">
                     <div>
-                        <label className="block text-sm font-medium text-[#ccccd6]">Name</label>
+                        <label className="block text-[#ccccd6]">Name</label>
                         <input type="text" className="mt-1 p-2 w-full border rounded-md bg-[#8b8b97]" required />
                     </div>
 
