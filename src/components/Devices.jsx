@@ -55,20 +55,20 @@ const Devices = () => {
   return (
     <>
         <div className="flex flex-col items-center min-h-screen bg-[#15151f]">
-        <h2 className="text-4xl font-bold my-10 text-[#d3d5de] w-[80%]">
+        <h2 className="text-4xl font-bold my-10 text-[#d3d5de] w-[95%]">
           DEVICES
         </h2>
-        <div className="flex w-[80%]  pb-5">
-            <Button
-                variant="contained"
+        <div className="flex w-[95%] justify-end pb-5">
+            <button
+                className="px-8 py-2 rounded-md bg-[#1e1e2b] border-[#4b9eda] border-2 
+                            text-[#4b9eda] hover:bg-[#252c42] hover:text-[#4b9eda]  hover:cursor-pointer"
                 onClick={() => setIsModalOpen(true)}
-                style={{ marginBottom: "20px", backgroundColor:"black"}}
             >
                 + Add Device
-            </Button>
+            </button>
         </div>
 
-        <Paper sx={{ width: "80%", overflow: "hidden", backgroundColor: "#1e1e2b" }}>
+        <Paper sx={{ width: "95%", overflow: "hidden", backgroundColor: "#1e1e2b" }}>
             <TableContainer sx={{ maxHeight: 400 }}>
                 <Table stickyHeader>
                 <TableHead sx={{ backgroundColor: "#1e1e2b" }}>

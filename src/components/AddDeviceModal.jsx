@@ -31,11 +31,6 @@ const AddDeviceModal = ({ isOpen, onClose, onSubmit }) => {
                         <input type="text" className="mt-1 p-2 w-full border rounded-md bg-[#8b8b97]" required />
                     </div>
 
-                    <div>
-                        <label className="block text-[#ccccd6]">Firmware Update URL</label>
-                        <input type="text" className="mt-1 p-2 w-full border rounded-md bg-[#8b8b97]" required />
-                    </div>
-
                     <div className="flex justify-end space-x-2">
                         <button type="button" onClick={onClose} className="px-6 py-2 rounded-md bg-[#1e1e2b] border-[#4b9eda] border-2 
                             text-[#4b9eda] hover:bg-[#252c42] hover:text-[#4b9eda]  hover:cursor-pointer">

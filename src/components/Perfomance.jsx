@@ -134,27 +134,27 @@ const Performance = () => {
   };
 
   const customStyles = {
-    control: (provided, state) => ({
-      ...provided,
-      borderColor: state.isFocused ? colors.primary : "#ccc",
-      backgroundColor: "#fdfdfd",
-      '&:hover': {
-        borderColor: colors.primary,
-      },
-      boxShadow: state.isFocused ? `0 0 0 2px ${colors.primary}40` : 'none',
-    }),
-    option: (provided, state) => ({
-      ...provided,
-      backgroundColor: state.isSelected
-        ? colors.grey
-        : state.isFocused
-        ? "#e0e0e0"
-        : "white",
-      '&:hover': {
-        backgroundColor: "#e0e0e0",
-      },
-    }),
-  };
+        control: (provided, state) => ({
+         ...provided,
+            backgroundColor: '#8b8b97',
+            color:'black',
+            border:'none',
+            boxShadow: 'none',
+            '&:hover': {
+            border: 'none',       
+            },
+        }),
+        placeholder: (provided) => ({
+         ...provided,
+            color: '#000',
+        }),
+
+         option: (provided, state) => ({
+         ...provided,
+            color:'black',
+            backgroundColor: state.isSelected ? '#f1f1f1' : state.isFocused ? '#d1d1d1' : '#8b8b97',
+        }),
+    };
 
   return (
     <>
