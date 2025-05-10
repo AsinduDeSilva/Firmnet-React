@@ -63,28 +63,27 @@ const Devices = () => {
                 className="px-8 py-2 rounded-md bg-[#1e1e2b] border-[#4b9eda] border-2 
                             text-[#4b9eda] hover:bg-[#252c42] hover:text-[#4b9eda]  hover:cursor-pointer"
                 onClick={() => setIsModalOpen(true)}
-            >
+            >    
                 + Add Device
             </button>
         </div>
-
         <Paper sx={{ width: "95%", overflow: "hidden", backgroundColor: "#1e1e2b" }}>
             <TableContainer sx={{ maxHeight: 400 }}>
                 <Table stickyHeader>
-                <TableHead sx={{ backgroundColor: "#1e1e2b" }}>
+                <TableHead sx={{ backgroundColor: "#1e1e2b", }}>
                     <TableRow>
                     {columns.map((column) => (
                         <TableCell
                         key={column.id}
-                        align={column.align}
-                        sx={{ color: "#d3d5de", backgroundColor: "#1e1e2b" }}
+                        align={column.align}     
+                        sx={{ color: "#d3d5de", backgroundColor: "#1e1e2b",fontWeight:"bold", fontSize:"16px", borderBottom:"1px solid #8b8b97"}}
                         >
                         {column.label}
                         </TableCell>
                     ))}
                     </TableRow>
                 </TableHead>
-                <TableBody sx={{ backgroundColor: "#1e1e2b" }}>
+                <TableBody sx={{ backgroundColor: "#1e1e2b", borderBottom:"1px solid #8b8b97" }}>
                     {rows
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map((row) => (
@@ -95,7 +94,7 @@ const Devices = () => {
                             <TableCell
                                 key={column.id}
                                 align={column.align}
-                                sx={{ color: "#d3d5de", backgroundColor: "#1e1e2b" }}
+                                sx={{ color: "#d3d5de", backgroundColor: "#1e1e2b", borderBottom:"1px solid #8b8b97"}}
                             >
                                 {column.id === "actions" ? (
                                 <div className="flex justify-center space-x-3">

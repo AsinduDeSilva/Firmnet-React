@@ -36,7 +36,7 @@ export default function FirmwareUpdate() {
     const customStyles = {
         control: (provided, state) => ({
          ...provided,
-            backgroundColor: '#8b8b97',
+            backgroundColor: '#d3d5de',
             color:'black',
             border:'none',
             boxShadow: 'none',
@@ -52,7 +52,7 @@ export default function FirmwareUpdate() {
          option: (provided, state) => ({
          ...provided,
             color:'black',
-            backgroundColor: state.isSelected ? '#f1f1f1' : state.isFocused ? '#d1d1d1' : '#8b8b97',
+            backgroundColor: state.isSelected ? '#f1f1f1' : state.isFocused ? '#d1d1d1' : '#d3d5de',
         }),
     };
 
@@ -66,7 +66,7 @@ export default function FirmwareUpdate() {
                 <div className="space-y-16">
                     <div className="flex items-center justify-between">
                         <Select
-                        className="flex-1 mx-6 pt-10"
+                        className="flex-1 mx-6 pt-10 "
                         options={deviceOptions}
                         onChange={handleDeviceChange}
                         placeholder="Select Device"
@@ -82,10 +82,8 @@ export default function FirmwareUpdate() {
                         <p className="text-[#d3d5de]">IP Address: {deviceDetails.ip}</p>
                     </div>
                 )}
-
-          
                 <div className="flex items-center justify-between mt-6">
-                    <label className="flex-1 border p-3 rounded-md mx-6 cursor-pointer bg-[#8b8b97]">
+                    <label className="flex-1 border p-3 rounded-md mx-6 cursor-pointer bg-[#d3d5de]">
                         <div className="flex items-center justify-center space-x-3">
                             <FaUpload className="text-gray-700" size={20} />
                             <span className="text-black">{file ? file.name : "Choose Firmware File"}</span>
@@ -97,8 +95,6 @@ export default function FirmwareUpdate() {
                         />
                     </label>
                 </div>
-
-          
                 <div className="flex items-center justify-between mt-6">
                     <button
                         className="flex-1  bg-[#1e1e2b] border-[#4b9eda] border-2 text-[#4b9eda] mb-10 px-5 py-3 

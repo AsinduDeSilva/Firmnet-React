@@ -13,22 +13,22 @@ const AddDeviceModal = ({ isOpen, onClose, onSubmit }) => {
                 <form onSubmit={onSubmit} className="space-y-4">
                     <div>
                         <label className="block text-[#ccccd6]">Name</label>
-                        <input type="text" className="mt-1 p-2 w-full border rounded-md bg-[#8b8b97]" required />
+                        <input type="text" className="mt-1 p-2 w-full border rounded-md bg-[#d3d5de]" required />
                     </div>
 
                     <div>
                         <label className="block text-[#ccccd6]">Username</label>
-                        <input type="email" className="mt-1 p-2 w-full border rounded-md bg-[#8b8b97]" required />
+                        <input type="email" className="mt-1 p-2 w-full border rounded-md bg-[#d3d5de]" required />
                     </div>
 
                     <div>
                         <label className="block text-[#ccccd6]">Password</label>
-                        <input type="password" className="mt-1 p-2 w-full border rounded-md bg-[#8b8b97]" required />
+                        <input type="password" className="mt-1 p-2 w-full border rounded-md bg-[#d3d5de]" required />
                     </div>
 
                     <div>
-                        <label className="block text-[#ccccd6]">Ip Address</label>
-                        <input type="text" className="mt-1 p-2 w-full border rounded-md bg-[#8b8b97]" required />
+                        <label className="block text-[#ccccd6]">IP Address</label>
+                        <input type="text" className="mt-1 p-2 w-full border rounded-md bg-[#d3d5de]" required />
                     </div>
 
                     <div className="flex justify-end space-x-2">

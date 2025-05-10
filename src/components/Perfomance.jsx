@@ -136,7 +136,7 @@ const Performance = () => {
   const customStyles = {
         control: (provided, state) => ({
          ...provided,
-            backgroundColor: '#8b8b97',
+            backgroundColor: '#d3d5de',
             color:'black',
             border:'none',
             boxShadow: 'none',
@@ -152,7 +152,7 @@ const Performance = () => {
          option: (provided, state) => ({
          ...provided,
             color:'black',
-            backgroundColor: state.isSelected ? '#f1f1f1' : state.isFocused ? '#d1d1d1' : '#8b8b97',
+            backgroundColor: state.isSelected ? '#f1f1f1' : state.isFocused ? '#d1d1d1' : '#d3d5de',
         }),
     };
 
