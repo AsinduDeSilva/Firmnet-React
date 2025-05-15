@@ -4,14 +4,13 @@ import { backendAddress } from "../constants/BackendInfo";
 const AddDeviceModal = ({ isOpen, onClose, onSubmit }) => {
   if (!isOpen) return null;
 
-  const[deviceId, setDeviceId] = useState("");
   const[deviceName, setDeviceName] = useState("");
   const[username, setUsername] = useState("");
   const[password, setPassword] = useState("");
   const[ipAddress, setIpAddress] = useState("");
-  const[firmwareUpdateUrl, setFirmwareUpdateUrl] = useState("");
 
   const btnAddDeviceOnClick = () => {
+    if (!isValidated()) return;
     
     fetch(`${backendAddress}/api/v1/device`, {
         method: "POST",
@@ -22,8 +21,7 @@ const AddDeviceModal = ({ isOpen, onClose, onSubmit }) => {
             name: deviceName,
             username: username,
             password: password,
-            ip: ipAddress,
-            firmwareUpdateURL: firmwareUpdateUrl,
+            ipAddress: ipAddress,
         }),
     })
     .then((response) => response.json())
@@ -34,32 +32,37 @@ const AddDeviceModal = ({ isOpen, onClose, onSubmit }) => {
     });
   }
 
+  const isValidated = () => {
+    return true;
+  }
 
-    return (
+
+
+  return (
     <>
         <div className="fixed inset-0 bg-opacity-40 backdrop-blur-md flex justify-center items-center z-10">
             <div className="p-6 rounded-lg shadow-lg w-160 bg-[#1e1e2b]">
                 <h2 className="text-xl font-bold mb-4 text-[#d3d5de]">ADD DEVICE</h2>
 
-                <form onSubmit={onSubmit} className="space-y-4">
+                <form onSubmit={btnAddDeviceOnClick} className="space-y-4">
                     <div>
                         <label className="block text-[#ccccd6]">Name</label>
-                        <input type="text" className="mt-1 p-2 w-full border rounded-md bg-[#d3d5de]" required />
+                        <input value={deviceName} onChange={e => setDeviceName(e.target.value)} type="text" className="mt-1 p-2 w-full border rounded-md bg-[#d3d5de]" required />
                     </div>
 
                     <div>
                         <label className="block text-[#ccccd6]">Username</label>
-                        <input type="email" className="mt-1 p-2 w-full border rounded-md bg-[#d3d5de]" required />
+                        <input value={username} onChange={e => setUsername(e.target.value)} type="text" className="mt-1 p-2 w-full border rounded-md bg-[#d3d5de]" required />
                     </div>
 
                     <div>
                         <label className="block text-[#ccccd6]">Password</label>
-                        <input type="password" className="mt-1 p-2 w-full border rounded-md bg-[#d3d5de]" required />
+                        <input value={password} onChange={e => setPassword(e.target.value)} type="password" className="mt-1 p-2 w-full border rounded-md bg-[#d3d5de]" required />
                     </div>
 
                     <div>
                         <label className="block text-[#ccccd6]">IP Address</label>
-                        <input type="text" className="mt-1 p-2 w-full border rounded-md bg-[#d3d5de]" required />
+                        <input value={ipAddress} onChange={e => setIpAddress(e.target.value)} type="text" className="mt-1 p-2 w-full border rounded-md bg-[#d3d5de]" required />
                     </div>
 
                     <div className="flex justify-end space-x-2">
