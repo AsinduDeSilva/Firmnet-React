@@ -13,15 +13,10 @@ function ProtectedRoute({ children }) {
 }
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-
-  useEffect(() => {
-    setIsAuthenticated(Cookies.get('auth') === "true");
-  }, []);
 
   return (
       <Routes>
-        <Route path="/signin" element={<Signin setIsAuthenticated={setIsAuthenticated} />} />
+        <Route path="/signin" element={<Signin />} />
 
         <Route
           path="/*"

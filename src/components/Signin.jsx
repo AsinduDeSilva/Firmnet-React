@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
+import { backendAddress } from "../constants/BackendInfo";
 
-export default function LoginForm({ setIsAuthenticated }) {
+export default function LoginForm() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -10,7 +11,7 @@ export default function LoginForm({ setIsAuthenticated }) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    fetch('http://localhost:8080/api/v1/auth', {
+    fetch(`${backendAddress}/api/v1/auth`, {
       method: 'POST',
       body: JSON.stringify({
         username: username,
@@ -25,8 +26,6 @@ export default function LoginForm({ setIsAuthenticated }) {
 
         if(data.success){
           Cookies.set("auth", "true", { expires: 1, secure: true, sameSite: "Strict" })
-          localStorage.setItem("auth", "true");
-          setIsAuthenticated(true);
           navigate("/", {replace: true});
         }else{
           alert("Wrong username or password!");
