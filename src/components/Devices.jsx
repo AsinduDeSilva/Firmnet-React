@@ -19,7 +19,7 @@ import { backendAddress } from "../constants/BackendInfo";
 const columns = [
   { id: "id", label: "Device ID", minWidth: 50 },
   { id: "name", label: "Device Name", minWidth: 100 },
-  { id: "ip", label: "IP Address", minWidth: 100, align: "center" },
+  { id: "ipAddress", label: "IP Address", minWidth: 100, align: "center" },
   { id: "actions", label: "Actions", minWidth: 100, align: "center" },
 ];
 /*
@@ -82,55 +82,64 @@ const Devices = () => {
   return (
     <>
         <div className="flex flex-col items-center min-h-screen bg-[#15151f]">
-        <h2 className="text-4xl font-bold my-10 text-[#d3d5de] w-[80%]">
+        <h2 className="text-4xl font-bold my-10 text-[#d3d5de] w-[95%]">
           DEVICES
         </h2>
-        <div className="flex w-[80%]  pb-5">
-            <Button
-                variant="contained"
+        <div className="flex w-[95%] justify-end pb-5">
+            <button
+                className="px-8 py-2 rounded-md bg-[#1e1e2b] border-[#4b9eda] border-2 
+                            text-[#4b9eda] hover:bg-[#252c42] hover:text-[#4b9eda]  hover:cursor-pointer"
                 onClick={() => setIsModalOpen(true)}
-                style={{ marginBottom: "20px", backgroundColor:"black"}}
-            >
+            >    
                 + Add Device
-            </Button>
+            </button>
         </div>
-
-        <Paper sx={{ width: "80%", overflow: "hidden", backgroundColor: "#1e1e2b" }}>
+        <Paper sx={{ width: "95%", overflow: "hidden", backgroundColor: "#1e1e2b" }}>
             <TableContainer sx={{ maxHeight: 400 }}>
-            <Table stickyHeader>
-                <TableHead>
-                <TableRow>
+                <Table stickyHeader>
+                <TableHead sx={{ backgroundColor: "#1e1e2b", }}>
+                    <TableRow>
                     {columns.map((column) => (
-                    <TableCell key={column.id} align={column.align}>
+                        <TableCell
+                        key={column.id}
+                        align={column.align}     
+                        sx={{ color: "#d3d5de", backgroundColor: "#1e1e2b",fontWeight:"bold", fontSize:"16px", borderBottom:"1px solid #8b8b97"}}
+                        >
                         {column.label}
                     </TableCell>
                     ))}
                 </TableRow>
                 </TableHead>
-                <TableBody>
-                {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
-                    <TableRow hover key={row.deviceId}>
-                    {columns.map((column) => {
-                        const value = row[column.id];
-                        return (
-                        <TableCell key={column.id} align={column.align}>
-                            {column.id === "actions" ? (
-                            <div className="flex justify-center space-x-3">
-                                <CloudUploadIcon className="text-black cursor-pointer" />
-                                <EditIcon className="text-black cursor-pointer" />
-                                <DeleteIcon
-                                className="text-black cursor-pointer"
-                                onClick={() => handleDelete(row.deviceId)}
-                                />
-                            </div>
-                            ) : (
-                            value
-                            )}
-                        </TableCell>
-                        );
-                    })}
-                    </TableRow>
-                ))}
+                <TableBody sx={{ backgroundColor: "#1e1e2b", borderBottom:"1px solid #8b8b97" }}>
+                    {rows
+                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                    .map((row) => (
+                        <TableRow hover key={row.deviceId}>
+                        {columns.map((column) => {
+                            const value = row[column.id];
+                            return (
+                            <TableCell
+                                key={column.id}
+                                align={column.align}
+                                sx={{ color: "#d3d5de", backgroundColor: "#1e1e2b", borderBottom:"1px solid #8b8b97"}}
+                            >
+                                {column.id === "actions" ? (
+                                <div className="flex justify-center space-x-3">
+                                    <CloudUploadIcon className="text-[#d3d5de] cursor-pointer" />
+                                    <EditIcon className="text-[#d3d5de] cursor-pointer" />
+                                    <DeleteIcon
+                                    className="text-[#d3d5de] cursor-pointer"
+                                    onClick={() => handleDelete(row.deviceId)}
+                                    />
+                                </div>
+                                ) : (
+                                value
+                                )}
+                            </TableCell>
+                            );
+                        })}
+                        </TableRow>
+                    ))}
                 </TableBody>
                 </Table>
             </TableContainer>
