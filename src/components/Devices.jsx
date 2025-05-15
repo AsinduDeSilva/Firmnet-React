@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Paper,
   Table,
@@ -14,14 +14,15 @@ import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Modal from "./AddDeviceModal"; 
+import { backendAddress } from "../constants/BackendInfo";
 
 const columns = [
-  { id: "deviceId", label: "Device ID", minWidth: 50 },
-  { id: "deviceName", label: "Device Name", minWidth: 100 },
-  { id: "ipAddress", label: "IP Address", minWidth: 100, align: "center" },
+  { id: "id", label: "Device ID", minWidth: 50 },
+  { id: "name", label: "Device Name", minWidth: 100 },
+  { id: "ip", label: "IP Address", minWidth: 100, align: "center" },
   { id: "actions", label: "Actions", minWidth: 100, align: "center" },
 ];
-
+/*
 const initialRows = [
   { deviceId: "089", deviceName: "PC1", ipAddress: "192.168.1.1" },
   { deviceId: "090", deviceName: "PC2", ipAddress: "192.168.1.2" },
@@ -29,12 +30,12 @@ const initialRows = [
   { deviceId: "092", deviceName: "PC4", ipAddress: "192.168.1.3" },
   { deviceId: "093", deviceName: "PC5", ipAddress: "192.168.1.3" },
   { deviceId: "094", deviceName: "PC6", ipAddress: "192.168.1.3" },
-];
+];*/
 
 const Devices = () => {
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
-  const [rows, setRows] = useState(initialRows);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [rows, setRows] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleChangePage = (event, newPage) => setPage(newPage);
@@ -44,13 +45,39 @@ const Devices = () => {
   };
 
   const handleDelete = (deviceId) => {
-    setRows(rows.filter((row) => row.deviceId !== deviceId));
+    if(!confirm("Are you sure want to delete this device?")){
+      return;
+    }
+    deleteDevice(deviceId);
+    loadDevices();
   };
 
   const handleAddDevice = (newDevice) => {
     setRows([...rows, newDevice]);
     setIsModalOpen(false);
   };
+
+  useEffect(()=> {
+    loadDevices();
+  },[])
+
+  const loadDevices = () => {
+    fetch(`${backendAddress}/api/v1/device`)
+    .then((response) => response.json())
+    .then((data) => {
+      setRows(data)
+    })
+  }
+
+  const deleteDevice = (deviceId) => {
+    fetch(`${backendAddress}/api/v1/device/${deviceId}`,{
+      method: "DELETE"
+    })
+    .then((response) => response.json())
+    .then((data) => console.log(data))
+  }
+
+
 
   return (
     <>
@@ -72,50 +99,50 @@ const Devices = () => {
             <TableContainer sx={{ maxHeight: 400 }}>
             <Table stickyHeader>
                 <TableHead>
-                <TableRow>
-                    {columns.map((column) => (
-                    <TableCell key={column.id} align={column.align}>
-                        {column.label}
-                    </TableCell>
-                    ))}
-                </TableRow>
+                  <TableRow>
+                      {columns.map((column) => (
+                        <TableCell key={column.id} align={column.align}>
+                            {column.label}
+                        </TableCell>
+                      ))}
+                  </TableRow>
                 </TableHead>
                 <TableBody>
-                {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
-                    <TableRow hover key={row.deviceId}>
-                    {columns.map((column) => {
-                        const value = row[column.id];
-                        return (
-                        <TableCell key={column.id} align={column.align}>
-                            {column.id === "actions" ? (
-                            <div className="flex justify-center space-x-3">
-                                <CloudUploadIcon className="text-black cursor-pointer" />
-                                <EditIcon className="text-black cursor-pointer" />
-                                <DeleteIcon
-                                className="text-black cursor-pointer"
-                                onClick={() => handleDelete(row.deviceId)}
-                                />
-                            </div>
-                            ) : (
-                            value
-                            )}
-                        </TableCell>
-                        );
-                    })}
-                    </TableRow>
-                ))}
+                  {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
+                      <TableRow hover key={row.id}>
+                        {columns.map((column) => {
+                            const value = row[column.id];
+                            return (
+                            <TableCell key={column.id} align={column.align}>
+                                {column.id === "actions" ? (
+                                  <div className="flex justify-center space-x-3">
+                                      <CloudUploadIcon className="text-black cursor-pointer" />
+                                      <EditIcon className="text-black cursor-pointer" />
+                                      <DeleteIcon
+                                        className="text-black cursor-pointer"
+                                        onClick={() => handleDelete(row.id)}
+                                      />
+                                  </div>
+                                ) : (
+                                  value
+                                )}
+                            </TableCell>
+                            );
+                        })}
+                      </TableRow>
+                  ))}
                 </TableBody>
             </Table>
             </TableContainer>
 
             <TablePagination
-            rowsPerPageOptions={[5, 10, 25]}
-            component="div"
-            count={rows.length}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            onPageChange={handleChangePage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
+              rowsPerPageOptions={[5, 10, 25]}
+              component="div"
+              count={rows.length}
+              rowsPerPage={rowsPerPage}
+              page={page}
+              onPageChange={handleChangePage}
+              onRowsPerPageChange={handleChangeRowsPerPage}
             />
         </Paper>
 
