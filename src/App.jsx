@@ -23,9 +23,9 @@ function App() {
           path="/*"
           element={
             <ProtectedRoute>
-              <div className="flex">
+              <div className="flex h-screen">
                 <Sidebar />
-                <div className="flex-1 bg-[#15151f]">
+                <div className="flex-1 bg-[#15151f] h-screen overflow-y-auto">
                   <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/devices" element={<Devices />} />
