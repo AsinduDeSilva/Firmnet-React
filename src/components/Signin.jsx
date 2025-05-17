@@ -38,36 +38,42 @@ export default function LoginForm() {
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-[#15151f]">
-      <div className="bg-[#1e1e2b] p-12 rounded-lg shadow-lg w-150">
-        <h2 className="text-2xl font-bold text-center text-[#d3d5de] mb-6">LOGIN</h2>
-        <form onSubmit={handleSubmit}>
-          <div className="mb-6">
-            <label className="block text-[#d3d5de]">Username</label>
-            <input
-              type="name"
-              className="w-full px-4 py-2 mt-2 border border-[#6a6a6a] rounded-lg focus:outline-[#d3d5de] focus:ring-2 focus:ring-[#d3d5de]"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
-            />
-          </div>
-          <div className="mb-12">
-            <label className="block text-[#d3d5de]">Password</label>
-            <input
-              type="password"
-              className="w-full px-4 py-2 mt-2 border border-[#6a6a6a] rounded-lg focus:outline-[#d3d5de] focus:ring-2 focus:ring-[#d3d5de]"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </div>
-          <button
-            type="submit"
-            className="w-full bg-[#15151f] text-white py-2 rounded-lg hover:bg-[#272735] hover:outline[#6a6a6a] transition"
-          >
-            Login
-          </button>
-        </form>
+      <div className="flex w-[1000px] bg-[#1e1e2b] rounded-lg shadow-lg overflow-hidden">
+        <div className="w-1/2 bg-[#272735] flex items-center justify-center p-20">
+          <img src="/logo1.png" alt="Logo" className="w-80 h-60" />
+        </div>
+        <div className="w-1/2 mb-20 mt-10 p-10">
+          <h2 className="text-4xl font-bold text-center text-[#d3d5de] mb-15">LOGIN</h2>
+          <form onSubmit={handleSubmit}>
+            <div className="mb-6">
+              <label className="block text-[#ccccd6]">Username</label>
+              <input
+                type="name"
+                className="w-full px-4 py-2 mt-2  rounded-lg bg-[#d3d5de]"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                required
+              />
+            </div>
+            <div className="mb-12">
+              <label className="block text-[#ccccd6]">Password</label>
+              <input
+                type="password"
+                className="w-full px-4 py-2 mt-2 rounded-lg bg-[#d3d5de]"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </div>
+            <button
+              type="submit"
+              className="w-full py-2 rounded-lg bg-[#1e1e2b] border-[#4b9eda] border-2 
+              text-[#4b9eda] hover:bg-[#252c42] hover:text-[#4b9eda]  hover:cursor-pointer"
+            >
+              Login
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   );
