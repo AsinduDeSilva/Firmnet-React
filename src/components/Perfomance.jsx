@@ -119,13 +119,13 @@ const Performance = () => {
   }
 
   useEffect(() => {
-    loadDevices();
+    //loadDevices();
   }, []);
 
   useEffect(() => {
     let intervalId;
     if (deviceDetails.id) {
-      loadMetrics(deviceDetails.id);
+      // loadMetrics(deviceDetails.id);
       intervalId = setInterval(() => {
         loadMetrics(deviceDetails.id);
       }, 2000);
@@ -153,18 +153,10 @@ const Performance = () => {
         />
       </div>
 
-      {deviceDetails && (
+      {true && (
         <>
-          <div className="flex-1 mx-6 mt-4 text-white">
-            <p>Device Name: {deviceDetails.name}</p>
-            <p>IP Address: {deviceDetails.ipAddress}</p>
-            <p>SDK Version : {deviceMetrics.sdkVersion}</p>
-            <p>RAM : {`${deviceMetrics.totalHeapBytes} Bytes`}</p>
-            <p>Uptime : {`${deviceMetrics.uptime} s`}</p>
-          </div>
-        
-
-          <div className="p-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div><br /></div>
+          <div className="p-4 grid grid-cols-1 md:grid-cols-3 gap-4">
             
             <div className="bg-[#1e1e2b] shadow-lg rounded-lg p-4">
               <h2 className="text-xl font-bold mb-2 text-[#d3d5de]">Memory Usage</h2>
@@ -180,6 +172,24 @@ const Performance = () => {
               </div>
             </div>
 
+            <div className="flex flex-col gap-4">
+              <div className="bg-[#1e1e2b] shadow-lg rounded-lg p-4 text-center">
+              <h2 className="text-lg font-semibold text-[#d3d5de]">Name of the Device</h2>
+              <p className="text-sm text-[#8b8b97]">Humidity Sensor</p>
+              </div>
+
+              <div className="bg-[#1e1e2b] shadow-lg rounded-lg p-4 text-center">
+              <h2 className="text-lg font-semibold text-[#d3d5de]">IP Address</h2>
+              <p className="text-sm text-[#8b8b97]">192.168.214.170</p>
+              </div>
+
+               <div className="bg-[#1e1e2b] shadow-lg rounded-lg p-4 text-center">
+              <h2 className="text-lg font-semibold text-[#d3d5de]">SDK Version</h2>
+              <p className="text-sm text-[#8b8b97]">v5.4.1-1-g2f7dcd862a-dirty</p>
+              </div>
+
+            </div>
+
             <div className="bg-[#1e1e2b] shadow-lg rounded-lg p-4">
               <h2 className="text-xl font-bold mb-2 text-[#d3d5de]">Chip Temperature</h2>
               <div style={{ width: "100%", height: "200px" }}>
@@ -192,6 +202,19 @@ const Performance = () => {
               <div style={{ width: "100%", height: "200px" }}>
                 <Line data={wifiStrengthChart} options={{ maintainAspectRatio: false }} />
               </div>
+            </div>
+
+             <div className="flex flex-col gap-4">
+              <div className="bg-[#1e1e2b] shadow-lg rounded-lg p-4 text-center">
+              <h2 className="text-lg font-semibold text-[#d3d5de]">RAM</h2>
+              <p className="text-sm text-[#8b8b97]">333572 Bytes</p>
+              </div>
+
+              <div className="bg-[#1e1e2b] shadow-lg rounded-lg p-4 text-center">
+              <h2 className="text-lg font-semibold text-[#d3d5de]">Uptime</h2>
+              <p className="text-sm text-[#8b8b97]">2000 s</p>
+              </div>
+                            
             </div>
 
           </div>
