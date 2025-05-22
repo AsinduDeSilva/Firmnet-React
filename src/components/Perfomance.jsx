@@ -119,13 +119,13 @@ const Performance = () => {
   }
 
   useEffect(() => {
-    //loadDevices();
+    loadDevices();
   }, []);
 
   useEffect(() => {
     let intervalId;
     if (deviceDetails.id) {
-      // loadMetrics(deviceDetails.id);
+      loadMetrics(deviceDetails.id);
       intervalId = setInterval(() => {
         loadMetrics(deviceDetails.id);
       }, 2000);
@@ -153,7 +153,7 @@ const Performance = () => {
         />
       </div>
 
-      {true && (
+      {deviceDetails && (
         <>
         <div><br /></div>
           <div className="p-4 grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -175,17 +175,17 @@ const Performance = () => {
             <div className="flex flex-col gap-4">
               <div className="bg-[#1e1e2b] shadow-lg rounded-lg p-4 text-center">
               <h2 className="text-lg font-semibold text-[#d3d5de]">Name of the Device</h2>
-              <p className="text-sm text-[#8b8b97]">Humidity Sensor</p>
+              <p className="text-sm text-[#8b8b97]">{deviceDetails.name}</p>
               </div>
 
               <div className="bg-[#1e1e2b] shadow-lg rounded-lg p-4 text-center">
               <h2 className="text-lg font-semibold text-[#d3d5de]">IP Address</h2>
-              <p className="text-sm text-[#8b8b97]">192.168.214.170</p>
+              <p className="text-sm text-[#8b8b97]">{deviceDetails.ipAddress}</p>
               </div>
 
                <div className="bg-[#1e1e2b] shadow-lg rounded-lg p-4 text-center">
               <h2 className="text-lg font-semibold text-[#d3d5de]">SDK Version</h2>
-              <p className="text-sm text-[#8b8b97]">v5.4.1-1-g2f7dcd862a-dirty</p>
+              <p className="text-sm text-[#8b8b97]">{deviceMetrics.sdkVersion}</p>
               </div>
 
             </div>
@@ -207,12 +207,12 @@ const Performance = () => {
              <div className="flex flex-col gap-4">
               <div className="bg-[#1e1e2b] shadow-lg rounded-lg p-4 text-center">
               <h2 className="text-lg font-semibold text-[#d3d5de]">RAM</h2>
-              <p className="text-sm text-[#8b8b97]">333572 Bytes</p>
+              <p className="text-sm text-[#8b8b97]">{`${deviceMetrics.totalHeapBytes} Bytes`}</p>
               </div>
 
               <div className="bg-[#1e1e2b] shadow-lg rounded-lg p-4 text-center">
               <h2 className="text-lg font-semibold text-[#d3d5de]">Uptime</h2>
-              <p className="text-sm text-[#8b8b97]">2000 s</p>
+              <p className="text-sm text-[#8b8b97]">{`${deviceMetrics.uptime} s`}</p>
               </div>
                             
             </div>
