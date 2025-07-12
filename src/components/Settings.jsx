@@ -1,11 +1,32 @@
 import React, { useState } from 'react';
 import { Switch, FormControlLabel, Typography } from '@mui/material';
+import { backendAddress } from '../constants/BackendInfo';
 
 const Settings = () => {
     const [toggle, setToggle] = useState(true);
     const handleToggleChange = (event) => {
-    setToggle(event.target.checked);
+        setToggle(event.target.checked);
+
+        if(toggle) enableSDN();
+        else disableSDN();
     };
+
+    const enableSDN = () => {
+        fetch(`${backendAddress}/api/v1/flow/flood`, {
+            method: 'POST'
+        })
+        .then(res => res.json())
+        .then(json => console.log(json))
+    }
+
+    const disableSDN = () => {
+        fetch(`${backendAddress}/api/v1/flow/flood`, {
+            method: 'DELETE'
+        })
+        .then(res => res.json())
+        .then(json => console.log(json))
+    }
+
     return (
         <div>
             <h2 className="text-4xl font-bold my-10 ml-5 text-[#d3d5de] w-[95%]">

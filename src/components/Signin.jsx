@@ -26,7 +26,7 @@ export default function LoginForm() {
 
         if(data.success){
           Cookies.set("auth", "true", { expires: 1, secure: true, sameSite: "Strict" })
-          navigate("/", {replace: true});
+          navigate("/devices", {replace: true});
         }else{
           alert("Wrong username or password!");
         }
