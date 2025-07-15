@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from 'react';
 import Sidebar from './components/Sidebar';
 import Devices from './components/Devices'
 import Signin from './components/Signin'
@@ -6,11 +5,10 @@ import Firmware from './components/Firmware'
 import Performance from './components/Perfomance';
 import Cookies from "js-cookie";
 import { Navigate, Route, Routes } from 'react-router-dom';
-import Home from './components/Home';
 import Settings from './components/Settings';
 
 function ProtectedRoute({ children }) {
-  const isAuthenticated = true; //Cookies.get('auth') === "true";
+  const isAuthenticated = Cookies.get('auth') === "true";
   return isAuthenticated ? children : <Navigate to="/signin" />;
 }
 

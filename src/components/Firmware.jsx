@@ -29,21 +29,49 @@ export default function FirmwareUpdate() {
     }
 
     const sendUpdate = async() => {
+        let res = await fetch(`${backendAddress}/api/v1/flow`, {
+            method: 'POST',
+            body: JSON.stringify({
+                src_ip : "10.0.0.2",
+                dst_ip : device.ipAddress,
+                dpid : 1
+            })
+        })
+
+        let data = res.json()
+        console.log(data)
+
+        if(!data.success) return;
+
+
         const formData = new FormData();
         console.log(file)
         formData.append('file', file);
         const basicAuth = btoa(`${device.username}:${device.password}`);
 
-        fetch(`http://${device.ipAddress}:80/update`, {
+        let res2 = await fetch(`http://${device.ipAddress}:80/update`, {
             method: 'POST',
             headers: {
                 'Authorization': `Basic ${basicAuth}`
             },
             body: formData
         })
-        .then(res => res.json())
-        .then(json => console.log(json))
-        .catch(err => console.log("Error : " + err));
+        if(!res2.ok) return;
+
+        let data2 = res2.json()
+        console.log(data2)
+
+        let res3 = await fetch(`${backendAddress}/api/v1/flow`, {
+            method: 'POST',
+            body: JSON.stringify({
+                src_ip : "10.0.0.2",
+                dst_ip : device.ipAddress,
+                dpid : 1
+            })
+        })
+
+        let data3 = res3.json()
+        console.log(data3)
 
     }
 
