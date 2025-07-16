@@ -3,11 +3,11 @@ import { Switch, FormControlLabel, Typography } from '@mui/material';
 import { backendAddress } from '../constants/BackendInfo';
 
 const Settings = () => {
-    const [toggle, setToggle] = useState(true);
+    const [toggle, setToggle] = useState(false);
     const handleToggleChange = (event) => {
         setToggle(event.target.checked);
 
-        if(toggle) enableSDN();
+        if(!toggle) enableSDN();
         else disableSDN();
     };
 
@@ -37,7 +37,7 @@ const Settings = () => {
                     Network Mode
                 </h2>
                 <FormControlLabel
-                    label={toggle ? 'Software Defined Network ' : 'Traditional Network '}
+                    label={'SDN Policy Test 1 '}
                     labelPlacement='start'
                     sx={{
                         '& .MuiFormControlLabel-label': {

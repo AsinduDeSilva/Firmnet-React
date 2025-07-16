@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { FaUpload } from "react-icons/fa";
 import Select from "react-select"; 
-import { backendAddress } from "../constants/BackendInfo";
+import { backendAddress, datapathId } from "../constants/BackendInfo";
 
 export default function FirmwareUpdate() {
 
@@ -31,14 +31,17 @@ export default function FirmwareUpdate() {
     const sendUpdate = async() => {
         let res = await fetch(`${backendAddress}/api/v1/flow`, {
             method: 'POST',
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            },
             body: JSON.stringify({
-                src_ip : "10.0.0.2",
+                src_ip : "192.168.8.161",
                 dst_ip : device.ipAddress,
-                dpid : 1
+                dpid : datapathId
             })
         })
 
-        let data = res.json()
+        let data = await res.json()
         console.log(data)
 
         if(!data.success) return;
@@ -49,28 +52,42 @@ export default function FirmwareUpdate() {
         formData.append('file', file);
         const basicAuth = btoa(`${device.username}:${device.password}`);
 
-        let res2 = await fetch(`http://${device.ipAddress}:80/update`, {
-            method: 'POST',
-            headers: {
-                'Authorization': `Basic ${basicAuth}`
-            },
-            body: formData
-        })
-        if(!res2.ok) return;
+        try{
+            let res2 = await fetch(`http://${device.ipAddress}:80/update`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Basic ${basicAuth}`
+                },
+                body: formData
+            })
+            //if(!res2.ok) return;
 
-        let data2 = res2.json()
-        console.log(data2)
+            await res2.json()
+
+        }catch(e){
+            console.log(e)
+        }
+
+        console.log("Update response received.")
+        alert("Firmware update successful!")
+
+        setInterval(() => {
+            
+        }, 10000);
 
         let res3 = await fetch(`${backendAddress}/api/v1/flow`, {
-            method: 'POST',
+            method: 'DELETE',
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            },
             body: JSON.stringify({
-                src_ip : "10.0.0.2",
+                src_ip : "192.168.8.161",
                 dst_ip : device.ipAddress,
-                dpid : 1
+                dpid : datapathId
             })
         })
 
-        let data3 = res3.json()
+        let data3 = await res3.json()
         console.log(data3)
 
     }

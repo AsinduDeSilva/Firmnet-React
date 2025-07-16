@@ -12,7 +12,7 @@ import {
   Filler
 } from "chart.js";
 import Select from "react-select";
-import { backendAddress } from "../constants/BackendInfo";
+import { backendAddress, datapathId } from "../constants/BackendInfo";
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, ArcElement, Tooltip, Legend, Filler);
 
@@ -118,6 +118,41 @@ const Performance = () => {
     })
   }
 
+  const addFlowRule = async () => {
+        let res = await fetch(`${backendAddress}/api/v1/flow`, {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+            body: JSON.stringify({
+                src_ip : "192.168.8.161",
+                dst_ip : deviceDetails.ipAddress,
+                dpid : datapathId
+            })
+        })
+
+        let data = await res.json()
+        console.log(data)
+    }
+
+    const removeFlowRule = async () => {
+        let res3 = await fetch(`${backendAddress}/api/v1/flow`, {
+            method: 'DELETE',
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+            body: JSON.stringify({
+                src_ip : "192.168.8.161",
+                dst_ip : deviceDetails.ipAddress,
+                dpid : datapathId
+            })
+        })
+
+        let data3 = await res3.json()
+        console.log(data3)
+    }
+
+
   useEffect(() => {
     loadDevices();
   }, []);
@@ -125,14 +160,21 @@ const Performance = () => {
   useEffect(() => {
     let intervalId;
     if (deviceDetails.id) {
-      loadMetrics(deviceDetails.id);
-      intervalId = setInterval(() => {
+
+        addFlowRule();
+
         loadMetrics(deviceDetails.id);
-      }, 2000);
+        intervalId = setInterval(() => {
+            loadMetrics(deviceDetails.id);
+        }, 2000);
     }
 
+    
     return () => {
-      if (intervalId) clearInterval(intervalId);
+      if (intervalId) {
+            clearInterval(intervalId)
+            removeFlowRule()
+        };
     };
   }, [deviceDetails]);
 
